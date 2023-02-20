@@ -11,4 +11,4 @@ impl<T, E: ::std::fmt::Debug> MyResult<T, E> {
     }
 }
 
-// ? - 故障时返回Err对象
+// ? - 故障时返回Err    象
