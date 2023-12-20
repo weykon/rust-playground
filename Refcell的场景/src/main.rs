@@ -50,12 +50,32 @@ impl Library {
             Err("Book not found".to_string())
         }
     }
+
+    // 加入新书
+    fn add_book(&mut self, title: &str) {
+        if !self.books.contains_key(title) {
+            self.books.insert(
+                title.to_string(),
+                RefCell::new(Book {
+                    title: title.to_string(),
+                    available: true,
+                }),
+            );
+        }
+    }
 }
 
 fn main() {
-    let library = Library::new();
+    let mut library = Library::new();
     match library.borrow_book("The Rust Programming Language") {
         Ok(_) => println!("Book borrowed successfully"),
         Err(e) => println!("{}", e),
     }
+
+    library.add_book("Programming Rust");
+    match library.borrow_book("Programming Rust") {
+        Ok(_) => println!("Book borrowed successfully"),
+        Err(e) => println!("{}", e),
+    }
+
 }
