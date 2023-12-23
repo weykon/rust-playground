@@ -9,6 +9,8 @@ mod life_time;
 mod option;
 mod result;
 mod ref_keyword_usage;  
+mod take_and_borrow;
 fn main() {
     life_time::main();
+    take_and_borrow::main();
 }
