@@ -11,3 +11,33 @@ fn main() {
     let s = Box::new(String::from("hello"));
     process_string(s);
 }
+
+// 更新： 是对一些类型大小未知的情况下，使用Box来解决编译时大小未知的问题。
+// 还有几个二三个可用的场景
+// 只在乎他的位置而不在乎他的大小
+
+// 现在我举一个放在堆上的用于表示trait对象的例子
+trait Animal {
+    fn name(&self) -> &'static str;
+}
+struct Dog;
+impl Animal for Dog {
+    fn name(&self) -> &'static str {
+        "Dog"
+    }
+}
+struct Cat;
+impl Animal for Cat {
+    fn name(&self) -> &'static str {
+        "Cat"
+    }
+}
+// 写一个函数处理他们的名字的，那么如果传一个(animal: Animal)进去，那么就会报错，因为trait是一个动态大小的类型
+// 所以我们可以用Box来解决这个问题
+fn print_name(animal: Box<dyn Animal>) {
+    println!("You're a {}", animal.name());
+}
+fn a_trait_with_box_usage (){
+    print_name(Box::new(Dog));
+    print_name(Box::new(Cat));
+}

@@ -10,7 +10,9 @@ mod option;
 mod result;
 mod ref_keyword_usage;  
 mod take_and_borrow;
+mod learn_from_pure_words;
 fn main() {
     life_time::main();
     take_and_borrow::main();
+    learn_from_pure_words::main();
 }
