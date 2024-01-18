@@ -2,6 +2,7 @@ use std::{ops::Deref, rc::Rc};
 
 mod BoxBoxWhy;
 mod box_and_rc;
+mod box_examples;
 pub fn main() {
     let a = 9;
 
