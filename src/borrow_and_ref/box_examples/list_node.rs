@@ -47,7 +47,7 @@ impl ListNode {
         let mut current = self;
         loop {
             match current.next {
-                Some(ref mut next) => current = next,
+                Some(ref mut next) => current = next.as_mut(),
                 None => {
                     current.next = Some(Box::new(ListNode::new(value)));
                     break;
@@ -69,7 +69,6 @@ mod tests {
         println!("here result: {:?}", list);
     }
 }
-
 
 // 有关的ref
 // 这里的ref mut 相当于在进入了Some的这个匹配之后{let mut next = next;} 来进入，所以当None的时候里面的current.next, 是不属于从let mut 过来的， 如果在 match current.next 那里就定义， &mut current.next 的话，就Some和None两个都作为可变引用，就会报错
