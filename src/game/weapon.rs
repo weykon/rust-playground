@@ -1,7 +1,7 @@
 trait Weapon {
-    fn fire();
-    fn reload();
-    fn re_compose();
+    fn fire(&self);
+    fn reload(&self);
+    fn re_compose(&self);
 }
 trait ZoomComp {
     fn cast_heavy(&self);
@@ -28,7 +28,6 @@ impl ZoomComp for Holosight {
     fn cast_heavy(&self) {}
 }
 
-
 // 在这个 Box 中成功加入的dyn trait， 是需要把trait作为了trait对象才可以这样用。
 // 在这个trait底下实现的函数需要满足对于成为trait对象的条件，是不允许静态方法，因为我一开始没有在case_heavy加self
 // 现在加了self，作为了trait对象来处理动态分发。
@@ -37,3 +36,16 @@ impl ZoomComp for Holosight {
 //
 // 静态分发是我们之前在其他语言中常见的泛型
 //
+
+trait Character {
+    fn carry_weapon_animation(&self, weapon: Box<dyn Weapon>);
+}
+
+struct Emeny {
+    name: String,
+    weapon: Box<dyn Weapon>,
+}
+
+impl Character for Emeny {
+    fn carry_weapon_animation(&self, weapon: Box<dyn Weapon>) {}
+}
