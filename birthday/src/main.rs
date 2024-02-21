@@ -13,7 +13,6 @@ impl Person {
         let birth_date = NaiveDate::parse_from_str("2000-01-01", "%Y-%m-%d").unwrap();
         let now = chrono::Local::now().date().naive_local();
         let age = now.year() - birth_date.year();
-
         Person {
             birthday: time,
             age,
