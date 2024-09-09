@@ -7,7 +7,7 @@ edition = "2021"
 
 [workspace]
 members = [
-    "birthday"
+    "birthday", "custom_str_slice", "custom_str_slice"
 ]
 
 
