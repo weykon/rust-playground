@@ -7,11 +7,19 @@ edition = "2021"
 
 [workspace]
 members = [
+<<<<<<< HEAD
     "birthday", "custom_str_slice", "custom_str_slice"
+=======
+    "birthday",
+    "enum_version_or_box"
+>>>>>>> origin
 ]
-
 
 [workspace.dependencies]
 tokio = {version = "1", features = ["full"]}
 regex = "1.10.3"
 chrono = "0.4"
+<<<<<<< HEAD
+=======
+rand = "0.8.5"
+>>>>>>> origin
