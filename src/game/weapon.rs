@@ -1,3 +1,5 @@
+use std::{borrow::Borrow, ops::Deref};
+
 trait Weapon {
     fn fire(&self);
     fn reload(&self);
@@ -47,5 +49,7 @@ struct Emeny {
 }
 
 impl Character for Emeny {
-    fn carry_weapon_animation(&self, weapon: Box<dyn Weapon>) {}
+    fn carry_weapon_animation(&self, weapon: Box<dyn Weapon>) {
+        weapon.deref().fire();
+    }
 }
