@@ -7,9 +7,9 @@ edition = "2021"
 
 [workspace]
 members = [
-    "birthday",
+    "birthday", "editor",
     "enum_version_or_box"
-]
+, "up_and_down_on_trait"]
 
 [workspace.dependencies]
 tokio = {version = "1", features = ["full"]}
