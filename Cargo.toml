@@ -7,14 +7,15 @@ edition = "2021"
 
 [workspace]
 members = [
-    "birthday", "editor",
-    "enum_version_or_box"
-, "up_and_down_on_trait"]
+    "birthday",
+    "editor",
+    "enum_version_or_box",
+    "up_and_down_on_trait",
+    "variant_and_phantomdata",
+]
 
 [workspace.dependencies]
-tokio = {version = "1", features = ["full"]}
+tokio = { version = "1", features = ["full"] }
 regex = "1.10.3"
 chrono = "0.4"
-<<<<<<< HEAD
-=======
 rand = "0.8.5"
