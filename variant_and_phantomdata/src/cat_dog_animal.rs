@@ -12,15 +12,22 @@ struct TemporaryShelter<'a, T: Animal> {
     animal: &'a mut T,
 }
 
+// 接收shelter，次animal，接收是泛型，在协变下
 fn shelter_animal<T: Animal + 'static>(shelter: AnimalShelter<T>, animal: &T) {
     // 将动物安置在收容所
+    println!("Sheltering animal");
 }
 
+// 接收processor，次animal，接收是动态的，逆变下
 fn process_animal(processor: &AnimalProcessor<dyn Animal>, animal: &mut dyn Animal) {
     // 处理动物
+    println!("Processing animal");
+    let p = animal.borrow().deref();
+    // let p = animal.deref();
+    // let p = animal.deref
 }
 
-fn main() {
+pub fn run() {
     let dog_shelter = AnimalShelter::<Dog>(PhantomData);
     let cat_shelter = AnimalShelter::<Cat>(PhantomData);
 

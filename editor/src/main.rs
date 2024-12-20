@@ -54,6 +54,5 @@ async fn main() {
     let tty = get_tty().unwrap();
 
 
-    termion::s
 
 }

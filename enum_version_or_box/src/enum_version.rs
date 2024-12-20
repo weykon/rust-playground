@@ -1,4 +1,6 @@
 use std::time::Instant;
+
+use rand::Rng;
 enum Shape {
     Rectangle(Rectangle),
     Circle(Circle),

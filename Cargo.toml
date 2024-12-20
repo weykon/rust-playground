@@ -9,7 +9,7 @@ edition = "2021"
 members = [
     "birthday",
     "editor",
-    "enum_version_or_box",
+    "enum_version_or_box", "type_in_dyn_or_static",
     "up_and_down_on_trait",
     "variant_and_phantomdata",
 ]
@@ -19,3 +19,7 @@ tokio = { version = "1", features = ["full"] }
 regex = "1.10.3"
 chrono = "0.4"
 rand = "0.8.5"
+
+[dependencies]
+tokio.workspace = true
+regex.workspace = true

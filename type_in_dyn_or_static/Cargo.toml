@@ -1,0 +1,6 @@
+[package]
+name = "type_in_dyn_or_static"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]

@@ -22,7 +22,7 @@ impl HtmlParser {
 
         let re = Regex::new(r"(?i)<(/?)([a-z0-9]+)(?:\s*([^>]*))?>").unwrap();
 
-        
+
     }
 }
 
