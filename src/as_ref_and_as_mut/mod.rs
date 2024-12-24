@@ -146,21 +146,113 @@ mod deref_example {
 }
 
 mod deref_why {
+    use std::ops::{Add, Deref};
 
-   // 更重要的是讨论deref的由来
-   struct MyBox<T>(T);
-   impl<T> Deref for MyBox<T> {
-         type Target = T;
-         fn deref(&self) -> &Self::Target {
-              &self.0
-         }
-   }
-   fn main  () {
-       // 假设目前我需要去装一个我i32, 那么在deref的操作下，可以拿到i32的值
-       let x_box = MyBox(5);
-       let y_box = MyBox(4);
+    // 更重要的是讨论deref的由来
+    struct MyBox<T: Copy + Clone>(T);
 
-       let sum = x_box + y_box;
-       let eq_sum = (*(x_box.deref())) + (*(y_box.deref()));
-   }
+    impl<T> MyBox<T>
+    where
+        T: Copy + Clone,
+    {
+        fn new(x: T) -> MyBox<T> {
+            MyBox(x)
+        }
+        fn as_ref(&self) -> &T {
+            &self
+        }
+    }
+
+    impl<T: Add<Output = T>> Add for &MyBox<T>
+    where
+        T: Copy + Clone,
+    {
+        type Output = MyBox<T>;
+        fn add(
+            self,
+            other: &MyBox<T>,
+        ) -> Self::Output {
+            MyBox::new(
+                *(self.deref())
+                    + *(other.deref()),
+            )
+        }
+    }
+    impl<T> Add for MyBox<T>
+    where
+        T: Copy + Clone + Add<Output = T>,
+    {
+        type Output = MyBox<T>;
+        fn add(
+            self,
+            other: MyBox<T>,
+        ) -> Self::Output {
+            MyBox::new(self.0 + other.0)
+        }
+    }
+    impl<T> Deref for MyBox<T>
+    where
+        T: Copy + Clone,
+    {
+        type Target = T;
+        fn deref(&self) -> &Self::Target {
+            &self.0
+        }
+    }
+    fn main() {
+        // 假设目前我需要去装一个我i32, 那么在deref的操作下，可以拿到i32的值
+        let x_box = MyBox(5);
+        let y_box = MyBox(4);
+
+        let sum = &x_box + &y_box;
+        let eq_sum = (*(x_box.deref()))
+            + (*(y_box.deref()));
+        let same_as_but_take_sum =
+            x_box + y_box;
+    }
+}
+
+mod my_option {
+    pub enum MyOption<T> {
+        Some(T),
+        None,
+    }
+
+    // 如果一个Option值去as_ref，那么需要考虑当前的Option是否有这个值
+    impl<T> MyOption<T> {
+        fn as_ref(&self) -> MyOption<&T> {
+            match self {
+                MyOption::Some(
+                    ref value,
+                ) => MyOption::Some(value),
+                MyOption::None => {
+                    MyOption::None
+                }
+            }
+        }
+    }
+}
+
+mod complex_option_set {
+    use super::my_option::MyOption;
+    #[derive(Debug)]
+    struct User {
+        name: String,
+        age: u32,
+    }
+
+    impl<T> MyOption<T> {
+        fn as_mut(
+            &mut self,
+        ) -> MyOption<&mut T> {
+            match self {
+                MyOption::Some(
+                    ref mut value,
+                ) => MyOption::Some(value),
+                MyOption::None => {
+                    MyOption::None
+                }
+            }
+        }
+    }
 }
