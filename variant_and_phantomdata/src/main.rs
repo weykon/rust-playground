@@ -1,12 +1,15 @@
 use std::marker::PhantomData;
 mod cat_dog_animal;
 mod negative_try;
+mod again;
+mod basic;
+
 fn main() {
     println!("Hello, why and how phantom data!");
     let _: Invariant<&'static str> = Invariant(PhantomData);
     let _: Covariant<&'static str> = Covariant(PhantomData);
     let _: Contravariant<&'static str> = Contravariant(PhantomData);
-     
+
     negative_try::run();
 }
 

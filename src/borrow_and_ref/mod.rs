@@ -28,7 +28,7 @@ fn rc_check() {
     let _a = &source;
     let _b = &source;
     // GPT说属于。
-    
+
     // 那么Rc就是多了个对引用的计数功能。
     let a: Rc<i32> = Rc::new(source);
     let b: Rc<i32> = Rc::new(source);
@@ -40,3 +40,5 @@ fn rc_check() {
 fn take_owner(a: Rc<i32>) {
     println!("{}", a.deref());
 }
+
+pub mod cell_or_refcell;

@@ -19,10 +19,13 @@ fn shelter_animal<T: Animal + 'static>(shelter: AnimalShelter<T>, animal: &T) {
 }
 
 // 接收processor，次animal，接收是动态的，逆变下
+// porcessor 逆变， animal &mut 不变
+// 所以对于这个函数，原本dyn的动物是猫狗等的子类型，但是这里的phantomdata说明了逆变的情况，所以在原本如果可以协变的情况下，传入的类型 Sub <: Super 的， 也就是可以传一个Sub的， 但是现在限定了逆变，那么只能传 Super， 所以后面这里我写的传的是一个general_processor，而不是具体的猫狗的processor
+// 然后这里的&mut 是对应于T的传入处理是不变的，所以传入是什么，处理就是什么，那么现在设置的是 dyn Animal， 是一个trait object，也就是对于一个类型实例的引用和虚表函数指针。
 fn process_animal(processor: &AnimalProcessor<dyn Animal>, animal: &mut dyn Animal) {
     // 处理动物
     println!("Processing animal");
-    let p = animal.borrow().deref();
+    let p = animal.deref();
     // let p = animal.deref();
     // let p = animal.deref
 }
